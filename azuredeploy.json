@@ -19,7 +19,8 @@
       "defaultValue": "WebsiteTest.ps1\\WebsiteTest",
       "metadata": {
         "description": "DSC configuration function to call"
-      },
+      }
+    },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
