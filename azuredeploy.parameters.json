@@ -21,7 +21,7 @@
             "value": "P@ssword123"
         },
         "modulesUrl": {
-            "value": "https://github.com/saumil1991/101-vm-simple-windows-DSC/raw/master/ContosoWebsite.ps1.zip"
+            "value": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/ContosoWebsite.ps1.zip"
         },
         "configurationFunction": {
             "value": "ContosoWebsite.ps1\\ContosoWebsite"
