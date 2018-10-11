@@ -12,7 +12,7 @@
       "value": "dnssaumil"
     },
     "modulesUrl": {
-      "value": "https://github.com/Azure/azure-quickstart-templates/raw/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip"
+      "value": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/DSC.zip"
     },
     "configurationFunction": {
         "value": "WebsiteTest.ps1\\WebsiteTest"
