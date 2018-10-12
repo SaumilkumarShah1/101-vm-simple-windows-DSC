@@ -1,9 +1,9 @@
 Configuration WebsiteTest {
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName xNetworking
+	param ($MachineName)
 
-    Node "SimpleWinVM" {
+  Node $MachineName {
         <#
             Install windows features
         #>
