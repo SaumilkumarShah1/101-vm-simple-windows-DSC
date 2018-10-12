@@ -191,8 +191,8 @@
         "typeHandlerVersion": "2.19",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/azure-quickstart-templates/master/dsc-extension-iis-server-windows-vm/ContosoWebsite.ps1.zip",
-          "ConfigurationFunction": "ContosoWebsite.ps1\\ContosoWebsite",
+          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/WebsiteTest.zip",
+          "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
           "Properties": {
             "MachineName": "[variables('vmName')]"
           }
