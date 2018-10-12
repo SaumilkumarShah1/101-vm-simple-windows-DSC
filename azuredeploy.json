@@ -8,19 +8,6 @@
         "description": "Username for the Virtual Machine."
       }
     },
-    "modulesUrl": {
-      "type": "string",
-      "metadata": {
-        "description": "URL for the DSC configuration module. NOTE: Can be a Github url(raw) to the zip file"
-      }
-    },
-    "configurationFunction": {
-      "type": "string",
-      "defaultValue": "WebsiteTest.ps1\\WebsiteTest",
-      "metadata": {
-        "description": "DSC configuration function to call"
-      }
-    },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
@@ -204,8 +191,8 @@
         "typeHandlerVersion": "2.19",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "ModulesUrl": "[parameters('modulesUrl')]",
-          "ConfigurationFunction": "[parameters('configurationFunction')]",
+          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/DSC.zip",
+          "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
           "Properties": {
             "MachineName": "[variables('vmName')]"
           }
