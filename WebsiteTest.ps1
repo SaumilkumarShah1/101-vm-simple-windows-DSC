@@ -12,23 +12,5 @@ Configuration WebsiteTest {
             Ensure = "Present"
         }
 
-        WindowsFeature EnableWinAuth {
-            Name = "Web-Windows-Auth"
-            Ensure = "Present"
-            DependsOn = "[WindowsFeature]InstallIIS"
-        }
-
-        WindowsFeature EnableURLAuth {
-            Name = "Web-Url-Auth"
-            Ensure = "Present"
-            DependsOn = "[WindowsFeature]InstallIIS"
-        }
-
-        WindowsFeature HostableWebCore {
-            Name = "Web-WHC"
-            Ensure = "Present"
-            DependsOn = "[WindowsFeature]InstallIIS"
-        }
-
     }
 }
