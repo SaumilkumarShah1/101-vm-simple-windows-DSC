@@ -3,7 +3,7 @@ Configuration WebsiteTest {
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName xNetworking
 
-    Node "webserver" {
+    Node "SimpleWinVM" {
         <#
             Install windows features
         #>
