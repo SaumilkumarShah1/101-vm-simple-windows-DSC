@@ -1,22 +1,34 @@
 Configuration WebsiteTest {
 
-    # Import the module that contains the resources we're using.
-    Import-DscResource -ModuleName 'PsDesiredStateConfiguration'
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName xNetworking
 
-    # The Node statement specifies which targets this configuration will be applied to.
-    Node 'localhost' {
-
-        # The first resource block ensures that the Web-Server (IIS) feature is enabled.
-        WindowsFeature WebServer {
+    Node "webserver" {
+        <#
+            Install windows features
+        #>
+        WindowsFeature InstallIIS {
+            Name = "Web-Server"
             Ensure = "Present"
-            Name   = "Web-Server"
         }
 
-        # # The second resource block ensures that the website content copied to the website root folder.
-        # File WebsiteContent {
-            # Ensure = 'Present'
-            # SourcePath = 'c:\test\index.htm'
-            # DestinationPath = 'c:\inetpub\wwwroot'
-        # }
+        WindowsFeature EnableWinAuth {
+            Name = "Web-Windows-Auth"
+            Ensure = "Present"
+            DependsOn = "[WindowsFeature]InstallIIS"
+        }
+
+        WindowsFeature EnableURLAuth {
+            Name = "Web-Url-Auth"
+            Ensure = "Present"
+            DependsOn = "[WindowsFeature]InstallIIS"
+        }
+
+        WindowsFeature HostableWebCore {
+            Name = "Web-WHC"
+            Ensure = "Present"
+            DependsOn = "[WindowsFeature]InstallIIS"
+        }
+
     }
 }
