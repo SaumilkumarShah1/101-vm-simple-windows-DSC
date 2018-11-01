@@ -14,6 +14,12 @@
         "description": "Password for the Virtual Machine."
       }
     },
+    "domainName": {
+      "type": "string",
+      "metadata": {
+        "description": "The FQDN of the Active Directory Domain to be created"
+      }
+    },
     "dnsLabelPrefix": {
       "type": "string",
       "metadata": {
@@ -194,10 +200,19 @@
           "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/WebsiteTest.ps1.zip",
           "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
           "Properties": {
-            "MachineName": "[variables('vmName')]"
+            "MachineName": "[variables('vmName')]",
+            "DomainName": "[parameters('domainName')]",
+            "AdminCreds": {
+              "UserName": "[parameters('adminUsername')]",
+              "Password": "PrivateSettingsRef:AdminPassword"
+            }
           }
         },
-        "protectedSettings": null
+        "protectedSettings": {
+          "Items": {
+            "AdminPassword": "[parameters('adminPassword')]"
+          }
+        }
       }
     }
   ],

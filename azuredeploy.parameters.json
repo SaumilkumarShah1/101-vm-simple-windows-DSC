@@ -10,6 +10,9 @@
     },
     "dnsLabelPrefix": {
       "value": "dnssaumil"
+    },
+    "domainName": {
+      "value": "mydomain.globant"
     }
   }
 }
