@@ -38,7 +38,8 @@
       "type": "securestring",
       "metadata": {
         "description": "The password for myFirstUser account"
-      },
+      }
+     },
       "domainName": {
         "type": "string",
         "metadata": {
