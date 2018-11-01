@@ -9,13 +9,13 @@
       "value": "Ansible@1234"
     },
     "safemodeadminUserName": {
-      "value": "saumilshah1"
+      "value": "adAdmin"
     },
     "safemodeadminPassword": {
       "value": "Ansible@12345"
     },
     "myFirstUserName": {
-      "value": "saumilshah2"
+      "value": "myFirstUser"
     },
     "myFirstUserPassword": {
       "value": "Ansible@12346"
