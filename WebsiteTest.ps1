@@ -7,12 +7,12 @@ Configuration WebsiteTest {
         [String]$DomainName,
 
         [Parameter(Mandatory)]
-        [System.Management.Automation.PSCredential]$Admincreds
+        [System.Management.Automation.PSCredential]$Admincreds,
 
-	[Parameter(Mandatory)]
+		[Parameter(Mandatory)]
         [System.Management.Automation.PSCredential]$myFirstUserCreds,
 
-	[Int]$RetryCount=20,
+		[Int]$RetryCount=20,
         [Int]$RetryIntervalSec=30
   ) 
 
