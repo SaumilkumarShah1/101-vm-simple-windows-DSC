@@ -8,9 +8,6 @@ Configuration WebsiteTest {
 
         [Parameter(Mandatory)]
         [System.Management.Automation.PSCredential]$Admincreds,
-
-        [Int]$RetryCount=20,
-        [Int]$RetryIntervalSec=30
     ) 
 
 	Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
@@ -80,8 +77,8 @@ Configuration WebsiteTest {
         xWaitforDisk Disk2
         {
             DiskNumber = 2
-            RetryIntervalSec =$RetryIntervalSec
-            RetryCount = $RetryCount
+            RetryIntervalSec =30
+            RetryCount = 20
         }
 
         xDisk ADDataDisk {
