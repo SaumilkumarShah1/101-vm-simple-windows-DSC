@@ -7,7 +7,7 @@ Configuration WebsiteTest {
         [String]$DomainName,
 
         [Parameter(Mandatory)]
-        [System.Management.Automation.PSCredential]$Admincreds,
+        [System.Management.Automation.PSCredential]$Admincreds
     ) 
 
 	Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
