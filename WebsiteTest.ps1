@@ -9,8 +9,8 @@ Configuration WebsiteTest {
         [Parameter(Mandatory)]
         [System.Management.Automation.PSCredential]$Admincreds,
 
-        [Int]$RetryCount=20,
-        [Int]$RetryIntervalSec=30           
+        #[Int]$RetryCount=20,
+        #[Int]$RetryIntervalSec=30           
   )             
             
 	Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
@@ -77,12 +77,12 @@ Configuration WebsiteTest {
 	    DependsOn = "[WindowsFeature]DNS"
     }
 
-    xWaitforDisk Disk2
-    {
-        DiskNumber = 2
-        RetryIntervalSec =$RetryIntervalSec
-        RetryCount = $RetryCount
-    }
+    #xWaitforDisk Disk2
+    #{
+        #DiskNumber = 2
+        #RetryIntervalSec =$RetryIntervalSec
+        #RetryCount = $RetryCount
+    #}
 
     xDisk ADDataDisk {
         DiskNumber = 2
