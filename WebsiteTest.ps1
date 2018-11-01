@@ -1,19 +1,23 @@
 Configuration WebsiteTest {
 
   param ($MachineName)
-     param 
-   ( 
+  param 
+  ( 
         [Parameter(Mandatory)]
         [String]$DomainName,
 
         [Parameter(Mandatory)]
         [System.Management.Automation.PSCredential]$Admincreds
-    ) 
 
-	Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
+		[Parameter(Mandatory)]
+        [System.Management.Automation.PSCredential]$myFirstUserCreds,
+
+		[Int]$RetryCount=20,
+        [Int]$RetryIntervalSec=30
+  ) 
+
+	Import-DscResource -ModuleName xActiveDirectory, xNetworking, xPendingReboot
     [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
-    $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
-    $InterfaceAlias=$($Interface.Name)
 
   Node $MachineName
   {
@@ -39,6 +43,8 @@ Configuration WebsiteTest {
 
 	LocalConfigurationManager 
         {
+            ActionAfterReboot = 'ContinueConfiguration'            
+            ConfigurationMode = 'ApplyOnly'            
             RebootNodeIfNeeded = $true
         }
 
@@ -48,24 +54,6 @@ Configuration WebsiteTest {
             Name = "DNS"		
         }
 
-        Script EnableDNSDiags
-	    {
-      	    SetScript = { 
-		        Set-DnsServerDiagnostics -All $true
-                Write-Verbose -Verbose "Enabling DNS client diagnostics" 
-            }
-            GetScript =  { @{} }
-            TestScript = { $false }
-	        DependsOn = "[WindowsFeature]DNS"
-        }
-
-	    WindowsFeature DnsTools
-	    {
-	        Ensure = "Present"
-            Name = "RSAT-DNS-Server"
-            DependsOn = "[WindowsFeature]DNS"
-	    }
-
         xDnsServerAddress DnsServerAddress 
         { 
             Address        = '127.0.0.1' 
@@ -74,17 +62,10 @@ Configuration WebsiteTest {
 	        DependsOn = "[WindowsFeature]DNS"
         }
 
-        xWaitforDisk Disk2
+		WindowsFeature RSAT
         {
-            DiskNumber = 2
-            RetryIntervalSec =30
-            RetryCount = 20
-        }
-
-        xDisk ADDataDisk {
-            DiskNumber = 2
-            DriveLetter = "F"
-            DependsOn = "[xWaitForDisk]Disk2"
+            Ensure = "Present"
+            Name = "RSAT"
         }
 
         WindowsFeature ADDSInstall 
@@ -93,31 +74,42 @@ Configuration WebsiteTest {
             Name = "AD-Domain-Services"
 	        DependsOn="[WindowsFeature]DNS" 
         } 
-
-        WindowsFeature ADDSTools
-        {
-            Ensure = "Present"
-            Name = "RSAT-ADDS-Tools"
-            DependsOn = "[WindowsFeature]ADDSInstall"
-        }
-
-        WindowsFeature ADAdminCenter
-        {
-            Ensure = "Present"
-            Name = "RSAT-AD-AdminCenter"
-            DependsOn = "[WindowsFeature]ADDSInstall"
-        }
          
-        xADDomain FirstDS 
+        xADDomain FirstDC 
         {
             DomainName = $DomainName
             DomainAdministratorCredential = $DomainCreds
             SafemodeAdministratorPassword = $DomainCreds
-            DatabasePath = "F:\NTDS"
-            LogPath = "F:\NTDS"
-            SysvolPath = "F:\SYSVOL"
-	        DependsOn = @("[xDisk]ADDataDisk", "[WindowsFeature]ADDSInstall")
+            DatabasePath = "C:\NTDS"
+            LogPath = "C:\NTDS"
+            SysvolPath = "C:\SYSVOL"
+	        DependsOn = "[WindowsFeature]ADDSInstall","[xDnsServerAddress]DnsServerAddress"
         } 
+
+		xWaitForADDomain DscForestWait
+        {
+            DomainName = $DomainName
+            DomainUserCredential = $DomainCreds
+            RetryCount = $RetryCount
+            RetryIntervalSec = $RetryIntervalSec
+            DependsOn = "[xADDomain]FirstDC"
+        } 
+
+        xADUser FirstUser 
+        { 
+            DomainName = $DomainName 
+            DomainAdministratorCredential = $DomainCreds 
+            UserName = $myFirstUserCreds.Username 
+            Password = $myFirstUserCreds
+            Ensure = "Present" 
+            DependsOn = "[xWaitForADDomain]DscForestWait" 
+        } 
+
+        xPendingReboot Reboot1
+        { 
+            Name = "RebootServer"
+            DependsOn = "[xWaitForADDomain]DscForestWait"
+        }
 
   }
 }
