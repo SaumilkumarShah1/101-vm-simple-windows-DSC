@@ -10,10 +10,7 @@ Configuration WebsiteTest {
         [System.Management.Automation.PSCredential]$Admincreds,
 
 		[Parameter(Mandatory)]
-        [System.Management.Automation.PSCredential]$myFirstUserCreds,
-
-		[Int]$RetryCount=20,
-        [Int]$RetryIntervalSec=30
+        [System.Management.Automation.PSCredential]$myFirstUserCreds
   ) 
 
     Import-DscResource -ModuleName xActiveDirectory, xNetworking, xPendingReboot
