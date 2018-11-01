@@ -197,7 +197,7 @@
         "typeHandlerVersion": "2.19",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/Website.zip",
+          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/xActiveDirectory.zip",
           "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
           "Properties": {
             "MachineName": "[variables('vmName')]",
