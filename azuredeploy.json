@@ -202,17 +202,11 @@
           "Properties": {
             "MachineName": "[variables('vmName')]",
             "DomainName": "[parameters('domainName')]",
-            "AdminCreds": {
-              "UserName": "[parameters('adminUsername')]",
-              "Password": "PrivateSettingsRef:AdminPassword"
-            }
+            "username": "[parameters('adminUsername')]",
+            "password": "[parameters('adminPassword')]"
           }
         },
-        "protectedSettings": {
-          "Items": {
-            "AdminPassword": "[parameters('adminPassword')]"
-          }
-        }
+        "protectedSettings": null
       }
     }
   ],
