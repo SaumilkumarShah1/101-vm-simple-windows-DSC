@@ -184,30 +184,29 @@
         }
       },
       {
-        "apiVersion": "2015-05-01-preview",
-        "dependsOn": [
-          "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
-        ],
-        "location": "[parameters('location')]",
-        "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
-        "properties": {
-          "publisher": "Microsoft.Powershell",
-          "type": "DSC",
-          "typeHandlerVersion": "2.19",
-          "autoUpgradeMinorVersion": true,
-          "settings": {
-            "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/DSC3.zip",
-            "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest"
-          },
-          "protectedSettings": {
-            "Items": {
-              "AdminPassword": "[parameters('adminPassword')]"
-            }
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
+      "apiVersion": "2015-05-01-preview",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/DSC3.zip",
+          "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
+          "Properties": {
+            "MachineName": "[variables('vmName')]"
           }
         },
-        "type": "Microsoft.Compute/virtualMachines/extensions"
+        "protectedSettings": null
       }
-    ],
+    }
+  ],
     "outputs": {
       "hostname": {
         "type": "string",
