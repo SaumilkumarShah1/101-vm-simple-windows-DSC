@@ -200,10 +200,19 @@
           "ModulesUrl": "https://raw.githubusercontent.com/saumil1991/101-vm-simple-windows-DSC/master/DSC3.zip",
           "ConfigurationFunction": "WebsiteTest.ps1\\WebsiteTest",
           "Properties": {
-            "MachineName": "[variables('vmName')]"
+            "MachineName": "[variables('vmName')]",
+            "DomainName": "[parameters('domainName')]",
+            "AdminCreds": {
+              "UserName": "[parameters('adminUsername')]",
+              "Password": "PrivateSettingsRef:AdminPassword"
+            }
           }
         },
-        "protectedSettings": null
+        "protectedSettings": {
+          "Items": {
+            "AdminPassword": "[parameters('adminPassword')]"
+          }
+        }
       }
     }
   ],
