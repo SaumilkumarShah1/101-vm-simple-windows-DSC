@@ -5,13 +5,11 @@ Configuration WebsiteTest {
 	    [String]$MachineName,
 		[String]$username,
 		[String]$password,
-        [Parameter(Mandatory)]
         [String]$DomainName
-
     ) 
 
     Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
-    [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$username", $password)
+    #[System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$username", $password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
 
