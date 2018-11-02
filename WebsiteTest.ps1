@@ -2,18 +2,16 @@ Configuration WebsiteTest {
 
    param 
    ( 
-	    $MachineName,
-
+	    [String]$MachineName,
+		[String]$username,
+		[String]$password,
         [Parameter(Mandatory)]
         [String]$DomainName,
-
-        [Parameter(Mandatory)]
-        [PSCredential] $Admincreds = New-Object System.Management.Automation.PSCredential($username,$password)
 
     ) 
 
     Import-DscResource -ModuleName xActiveDirectory, xStorage, xNetworking, PSDesiredStateConfiguration, xPendingReboot
-    [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
+    [System.Management.Automation.PSCredential ]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$username", $password)
     $Interface=Get-NetAdapter|Where Name -Like "Ethernet*"|Select-Object -First 1
     $InterfaceAlias=$($Interface.Name)
 
