@@ -184,13 +184,12 @@
         }
       },
       {
-        "type": "Microsoft.Compute/virtualMachines/extensions",
-        "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
         "apiVersion": "2015-05-01-preview",
-        "location": "[parameters('location')]",
         "dependsOn": [
           "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
         ],
+        "location": "[parameters('location')]",
+        "name": "[concat(variables('vmName'),'/', variables('vmExtensionName'))]",
         "properties": {
           "publisher": "Microsoft.Powershell",
           "type": "DSC",
@@ -205,7 +204,8 @@
               "AdminPassword": "[parameters('adminPassword')]"
             }
           }
-        }
+        },
+        "type": "Microsoft.Compute/virtualMachines/extensions"
       }
     ],
     "outputs": {

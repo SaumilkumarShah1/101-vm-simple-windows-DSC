@@ -8,18 +8,6 @@
     "adminPassword": {
       "value": "Ansible@1234"
     },
-    "safemodeadminUserName": {
-      "value": "adAdmin"
-    },
-    "safemodeadminPassword": {
-      "value": "Ansible@12345"
-    },
-    "myFirstUserName": {
-      "value": "myFirstUser"
-    },
-    "myFirstUserPassword": {
-      "value": "Ansible@12346"
-    },
     "dnsLabelPrefix": {
       "value": "dnssaumil"
     },
