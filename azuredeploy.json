@@ -14,32 +14,6 @@
         "description": "Password for the Virtual Machine."
       }
     },
-    "safemodeadminUserName": {
-      "type": "string",
-      "metadata": {
-        "description": "The username of the safemodeAdmin User.This is never required"
-      },
-      "defaultValue": "adAdmin"
-    },
-    "safemodeadminPassword": {
-      "type": "securestring",
-      "metadata": {
-        "description": "The password for the safemodeAdministrator account for the DC"
-      }
-    },
-    "myFirstUserName": {
-      "type": "string",
-      "metadata": {
-        "description": "The username of the first domain user"
-      },
-      "defaultValue": "myFirstUser"
-    },
-    "myFirstUserPassword": {
-      "type": "securestring",
-      "metadata": {
-        "description": "The password for myFirstUser account"
-      }
-     },
       "domainName": {
         "type": "string",
         "metadata": {
@@ -231,22 +205,12 @@
               "AdminCreds": {
                 "UserName": "[parameters('adminUsername')]",
                 "Password": "PrivateSettingsRef:AdminPassword"
-              },
-              "SafeModeAdminCreds": {
-                "UserName": "[parameters('safemodeAdminUserName')]",
-                "Password": "PrivateSettingsRef:SafeModeAdminPassword"
-              },
-              "myFirstUserCreds": {
-                "UserName": "[parameters('myFirstUserName')]",
-                "Password": "PrivateSettingsRef:MyFirstUserPassword"
               }
             }
           },
           "protectedSettings": {
             "Items": {
-              "AdminPassword": "[parameters('adminPassword')]",
-              "SafeModeAdminPassword": "[parameters('safemodeadminPassword')]",
-              "MyFirstUserPassword": "[parameters('myFirstUserPassword')]"
+              "AdminPassword": "[parameters('adminPassword')]"
             }
           }
         }
