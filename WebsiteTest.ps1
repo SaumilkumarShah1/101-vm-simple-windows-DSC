@@ -6,7 +6,7 @@ Configuration WebsiteTest {
 		[String]$username,
 		[String]$password,
         [Parameter(Mandatory)]
-        [String]$DomainName,
+        [String]$DomainName
 
     ) 
 
